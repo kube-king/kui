@@ -25,8 +25,10 @@ v1.28.0
 ```shell
   # 需要安装依赖
   yum -y install ipset ipvsadm conntrack socat
-  # 下载二进制文件
-  curl 
+  # 下载 amd64 二进制文件
+  curl -o kui https://github.com/kube-king/kui/releases/download/v0.1/kui-amd64 && chmod +x ./kui
+  # 下载 arm64 二进制文件
+  curl -o kui https://github.com/kube-king/kui/releases/download/v0.1/kui-arm64 && chmod +x ./kui
   # 生成配置文件模版和主机清单模版
   ./kui gen config  # 需修改 config.yaml 和 host.yaml 
   # 部署一个kubernetes集群
