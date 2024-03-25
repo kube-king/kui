@@ -1,0 +1,28 @@
+masters:
+  - hostname: m01
+    ip: 10.211.55.7
+    username: root
+    password: test1234
+    port: 22
+  - hostname: m02
+    ip: 10.211.55.8
+    username: root
+    password: test1234
+    port: 22
+  - hostname: m03
+    ip: 10.211.55.9
+    username: root
+    password: test1234
+    port: 22
+workers:
+  - hostname: n01
+    ip: 10.211.55.10
+    username: root
+    password: test1234
+    port: 22
+  - hostname: n02
+    ip: 10.211.55.11
+    username: root
+    password: test1234
+    port: 22
+
