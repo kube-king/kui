@@ -1,15 +1,23 @@
 # Kui
 Kubernetes 部署工具 （Kubernetes Install Tools ）
 
-说明：
-此项目用于部署kubernetes 集群，同事支持国产化麒麟操作系统,支持x86 64和ARM64,目前支持的kubernetes 版本有 v1.21.5,v1.22.17,v1.23.17。
+此项目用于部署kubernetes 集群，同事支持国产化麒麟操作系统,支持x86 64和ARM64,包括部署容器运行时 docker、containerd、etcd、kubernetes、kube-vip、calico,目前支持的kubernetes 版本有 
+v1.21.5
+v1.22.17
+v1.23.17
+v1.24.0
+v1.25.0
+v1.26.0
+v1.27.0
+v1.28.0
+
 
 #### 操作系统支持
 | 操作系统     | 是否测试通过    | 备注                                     |
 |----------|----------|----------------------------------------|
 | Centos 7 | 是        | centos 8及其以上版本 ，需要调整iptables-legacy 模式 |
 | 麒麟V10 SP2 | 是        | 需要卸载podman 和runc                       |
-| Rocky Linux 8.6 | 是        |                                        |
+| Rocky Linux 8.6 | 是        | 需要卸载podman 和runc                       |
 
 说明: 其他操作系统可自行测试
 
@@ -30,7 +38,7 @@ Kubernetes 部署工具 （Kubernetes Install Tools ）
 1. [x] 支持 X86_64位和ARM64位架构
 2. [x] 支持 单节点master和多节点master集群部署
 3. [x] 支持 系统初始化配置
-4. [x] 支持 etcd集群和单节点部署 ()
+4. [x] 支持 etcd集群和单节点部署
 5. [x] 集成 kube-vip 高可用方案 (如需定制化配置，修改templates/kube-vip.yaml.tpl)
 6. [x] 支持 docker 、containerd 部署 (如需有定制化安装,修改:templates/install_docker.sh /templates/install_containerd.sh 即可)
 7. [x] 网络CNI 支持 calico （目前默认使用ipip模式，如需更改修改templates/calico-v3.20.0.yaml.tpl 即可）
@@ -103,6 +111,13 @@ workers:
 ```
 
 ### 捐赠 
-如果本项目对您有帮助，不妨请作者喝个咖啡。
+如果本项目对您有帮助，不妨请作者喝个咖啡。作者邮箱: xiangjiqiang@qq.com
+
+| 微信  | 支付宝                         |
+|-----|-----------------------------|
+|   ![](docs/images/wechat.jpg)  | ![](docs/images/alipay.jpg) |
+
+
+
 
 
