@@ -1,62 +1,6 @@
 package etcd
 
 const (
-	CaConfig = `
-{
-  "signing": {
-    "default": {
-      "expiry": "438290h"
-    },
-    "profiles": {
-      "kubernetes": {
-        "expiry": "438290h",
-        "usages": [
-          "signing",
-          "key encipherment",
-          "server auth",
-          "client auth"
-        ]
-      }
-    }
-  }
-}
-`
-	CaCsr = `
-{
-  "CN": "etcd CA",
-  "ca": {
-    "expiry": "438290h"
-  },
-  "key": {
-    "algo": "rsa",
-    "size": 2048
-  },
-  "names": [
-    {
-      "C": "CN",
-      "L": "Changchun",
-      "ST": "Changchun"
-    }
-  ]
-}
-`
-	ServerCsr = `
-{
-"CN": "etcd",
-"hosts": %v,
-"key": {
-  "algo": "rsa",
-  "size": 2048
-},
-"names": [
-  {
-	"C": "CN",
-	"L": "Changchun",
-	"ST": "Changchun"
-  }
-]
-}
-`
 	CreateEtcdConf = `
 cat > {{ .ETCD_PATH }}/cfg/etcd.conf << EOF
 #[Member]
@@ -73,6 +17,8 @@ ETCD_INITIAL_CLUSTER_TOKEN="etcd-cluster"
 ETCD_INITIAL_CLUSTER_STATE="new"
 ETCD_HEARTBEAT_INTERVAL={{ .ETCD_HEARTBEAT_INTERVAL }}
 ETCD_ELECTION_TIMEOUT={{ .ETCD_ELECTION_TIMEOUT }}
+
+
 EOF
 `
 

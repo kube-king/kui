@@ -54,7 +54,7 @@ func (i *InitCluster) Exec(config *config.Config) (err error) {
 		"KUBE_VIP_VERSION":       config.KubeVipOption.Version,
 		"REGISTRY":               config.Core.Registry,
 		"VIP_ADDRESS":            vip,
-		"VIP_INTERFACE":          config.Core.NetworkAdapter,
+		"INTERFACE":              config.Core.NetworkAdapter,
 		"SERVICE_CIDR":           config.KubernetsOption.ServiceCIDR,
 		"POD_CIDR":               config.KubernetsOption.PodCIDR,
 		"CLUSTER_DNS":            clusterDNS,

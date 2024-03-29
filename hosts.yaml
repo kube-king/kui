@@ -25,4 +25,3 @@ workers:
     username: root
     password: test1234
     port: 22
-

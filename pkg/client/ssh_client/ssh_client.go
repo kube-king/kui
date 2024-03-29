@@ -40,7 +40,7 @@ type Config struct {
 	Password     string   `yaml:"password"`
 	PrivateKey   string   `yaml:"-"`
 	AuthType     string   `yaml:"-"`
-	Role         string   `yaml:"role"`
+	Role         string   `yaml:"-"`
 	Ip           string   `yaml:"ip"`
 	Port         int      `yaml:"port"`
 	KeyExchanges []string `yaml:"-"`

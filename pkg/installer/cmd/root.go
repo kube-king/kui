@@ -3,7 +3,6 @@ package cmd
 import (
 	"errors"
 	"github.com/spf13/cobra"
-	"kube-invention/pkg/installer"
 	"log"
 	"os"
 )
@@ -21,9 +20,10 @@ var rootCmd = &cobra.Command{
 
 func Execute() {
 
-	rootCmd.AddCommand(installer.InitCmd, installer.AddNodeCmd)
+	rootCmd.AddCommand(InitCmd, AddNodeCmd, GenCmd)
 	if err := rootCmd.Execute(); err != nil {
 		log.Println(err.Error())
 		os.Exit(1)
 	}
+
 }

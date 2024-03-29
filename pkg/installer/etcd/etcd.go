@@ -30,7 +30,6 @@ func (e *Etcd) Exec(config *config.Config) (err error) {
 	}
 
 	common.MkDirs(0775, constant.CertPath)
-
 	etcdHostList, err := config.Hosts.GetEtcdHostList(config.EtcdOption.Replicas)
 	if err != nil {
 		return err

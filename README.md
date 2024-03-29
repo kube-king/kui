@@ -1,7 +1,7 @@
 # Kui
 Kubernetes 部署工具 （Kubernetes Install Tools ）
 
-此项目用于部署kubernetes 集群，同事支持国产化麒麟操作系统,支持x86 64和ARM64,包括部署容器运行时 docker、containerd、etcd、kubernetes、kube-vip、calico,目前支持的kubernetes 版本有 
+此项目用于部署kubernetes 集群，同事支持国产化麒麟操作系统,支持x86 64和ARM64,包括部署容器运行时 docker、containerd、etcd、kubernetes、kube-vip、calico,目前支持的kubernetes 版本:
 v1.21.5
 v1.22.17
 v1.23.17
@@ -21,18 +21,51 @@ v1.28.0
 
 说明: 其他操作系统可自行测试
 
-### 快速使用
+版本:
+
+| kubernetes version | etcd version | containerd version | docker version | calico version |
+|--------------------|--------------|--------------------|----------------|----------------|
+| v1.21.5            | 3.5.0        | v1.7.0             | v20.10.8       | v3.24          |
+| v1.22.17           | 3.5.0        | v1.7.0             | v20.10.8       | v3.24          |
+| v1.23.17           | 3.5.0        | v1.7.0             | v20.10.8       | v3.24          |
+| v1.24.0            | 3.5.3        | v1.7.0             | no support     | v3.24          |
+| v1.25.0            | 3.5.4        | v1.7.0             | no support     | v3.24          |
+| v1.26.0            | 3.5.6        | v1.7.0             | no support     | v3.25          |
+| v1.27.0            | 3.5.7        | v1.7.0             | no support     | v3.26          |
+| v1.28.0            | 3.5.9        | v1.7.0             | no support     | v3.27          |
+
+
+### 安装集群
 ```shell
-  # 需要安装依赖
+  # 需保证集群所有节点已安装以下依赖
   yum -y install ipset ipvsadm conntrack socat
-  # 下载 amd64 二进制文件
-  curl -o kui https://github.com/kube-king/kui/releases/download/v0.1/kui-amd64 && chmod +x ./kui
-  # 下载 arm64 二进制文件
-  curl -o kui https://github.com/kube-king/kui/releases/download/v0.1/kui-arm64 && chmod +x ./kui
-  # 生成配置文件模版和主机清单模版
-  ./kui gen config  # 需修改 config.yaml 和 host.yaml 
+  # 选择cpu架构
+  arch = amd64
+  # 下载二进制文件
+  curl -o kui https://github.com/kube-king/kui/releases/download/v0.1/kui-${arch} && chmod +x ./kui
+  # 生成配置文件模版 ( 需根据实际环境修改 config.yaml)
+  ./kui gen config --kubernetes-version=v1.25.0 --container-runtime-type=containerd --arch=arm64 --vip=10.211.55.200
+  # 生成host主机清单模版
+  ./kui gen host -n hosts # 需根据实际主机清单修改 hosts.yaml
   # 部署一个kubernetes集群
-  ./kui init cluster
+  ./kui init --config config.yaml
+```
+### 批量添加master节点 (注意：需要保留安装好集群之后的 config.yaml 和data 目录中的生成数据)
+```shell
+  # 生成 add-master-host.yaml 主机清单
+  ./kui gen host -n master
+  
+  # 开始执行添加master节点
+  ./kui add master --config config.yaml --hosts add-master-hosts.yaml
+```
+
+### 批量添加worker节点
+```shell
+  # 生成 add-worker-host.yaml 主机清单
+  ./kui gen host -n worker
+  
+  # 开始执行添加worker节点
+  ./kui add worker --config config.yaml --hosts add-worker-hosts.yaml
 ```
 
 ### 功能特性:
@@ -50,65 +83,61 @@ v1.28.0
 ### 配置说明:
 
 <!-- TOC -->
-#### 配置文件 config/config.yaml
+#### 配置文件 config.yaml
 ```yaml
 core:
-  ignoreSystemCheck: false # ignore check system
-  arch: arm64 # amd64 arm64
-  registry: registry.cn-hangzhou.aliyuncs.com/kube-king # image registry address
-  networkAdapter: eth0 # network interface name
+  ignoreSystemCheck: true
+  arch: amd64
+  registry: registry.cn-hangzhou.aliyuncs.com/kube-king
+  networkAdapter: eth0
+kubernetes:
+  version: V1.28.0
+  serviceCidr: 10.91.0.0/16
+  podCidr: 10.241.0.0/16
 containerRuntime:
-  type: containerd # container runtime type (containerd , docker) 
-  version: v1.6.21 # container runtime version
-  insecureRegistryList: # container runtime insecure registry list
+  type: containerd
+  insecureRegistryList:
     - registry.cn-hangzhou.aliyuncs.com
 etcd:
-  version: v3.5.0 # etcd version
-  rootPath: /var/lib/etcd # etcd root path
-  replicas: 3 # default replicas is master node number , value must in （1，3，5，7）
-kubernetes:
-  version: v1.21.5 # kubernetes version
-  serviceCidr: 10.91.0.0/16  # service cidr address
-  podCidr: 10.241.0.0/16 # pod cidr address
+  replicas: 3
+  rootPath: /var/lib/etcd
 kubeVip:
-  enable: true # enable kube-vip
-  vip: 10.211.55.200 # vip address
-  version: v0.3.8 # kube vip version
+  enable: true
+  vip: x.x.x.x
 cni:
-  enable: true # enable cni
-  type: calico # cni type (calico)
-  version: v3.20.0 # cni version
+  enable: true
+  type: calico
 ```
 
-#### host节点清单 config/host.yaml
+#### host节点清单 hosts.yaml
 
 ```yaml
 masters:
   - hostname: master01
-    ip: 1.1.1.1
     username: root
-    password: xxxxxx
+    password: xxxx
+    ip: 1.1.1.1
     port: 22
   - hostname: master02
-    ip: 1.1.1.2
     username: root
-    password: xxxxxx
+    password: xxxx
+    ip: 1.1.1.2
     port: 22
   - hostname: master03
-    ip: 1.1.1.3
     username: root
-    password: xxxxxx
+    password: xxxx
+    ip: 1.1.1.3
     port: 22
 workers:
-  - hostname: node01
+  - hostname: worker01
+    username: root
+    password: xxxx
     ip: 1.1.1.4
-    username: root
-    password: xxxxxx
     port: 22
-  - hostname: node01
-    ip: 1.1.1.5
+  - hostname: worker02
     username: root
-    password: xxxxxx
+    password: xxxx
+    ip: 1.1.1.5
     port: 22
 ```
 

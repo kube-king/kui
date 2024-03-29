@@ -14,19 +14,21 @@ type Core struct {
 	NetworkAdapter    string `yaml:"networkAdapter" json:"networkAdapter"`
 }
 
+const (
+	TaskTypeInit = iota
+	TaskTypeJoinMaster
+	TaskTypeJoinWorker
+)
+
 type Config struct {
+	TaskType               int                    `json:"-" yaml:"-"`
 	Hosts                  Hosts                  `yaml:"-" json:"-"`
 	Core                   Core                   `yaml:"core" json:"core"`
-	CheckSystemOption      CheckSystemOption      `yaml:"checkSystem" json:"checkSystem"`
 	KubernetsOption        KubernetesOption       `yaml:"kubernetes" json:"kubernetes"`
 	ContainerRuntimeOption ContainerRuntimeOption `yaml:"containerRuntime" json:"containerRuntime"`
 	EtcdOption             EtcdOption             `yaml:"etcd" json:"etcd"`
 	KubeVipOption          KubeVipOption          `yaml:"kubeVip" json:"kubeVip"`
 	CniOption              CniOption              `yaml:"cni" json:"cni"`
-}
-
-type CheckSystemOption struct {
-	Enable bool `yaml:"enable" json:"enable"`
 }
 
 type ContainerRuntimeOption struct {
@@ -60,8 +62,8 @@ type CniOption struct {
 }
 
 type Hosts struct {
-	Masters []ssh_client.Config `json:"masters" yaml:"masters"`
-	Workers []ssh_client.Config `json:"workers" yaml:"workers"`
+	Masters []ssh_client.Config `json:"masters,omitempty" yaml:"masters,omitempty"`
+	Workers []ssh_client.Config `json:"workers,omitempty" yaml:"workers,omitempty"`
 }
 
 type HostLenFunc func() int
