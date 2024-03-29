@@ -64,7 +64,7 @@ v1.28.0
 
 ### 批量添加worker节点
 ```shell
-  # 生成 add-worker-host.yaml 主机清单
+  # 生成 add-worker-host.yaml 主机清单(注意：需要保留安装好集群之后的 config.yaml 和data 目录中的生成数据)
   ./kui gen host -n worker
   
   # 开始执行添加worker节点
