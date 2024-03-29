@@ -62,9 +62,9 @@ v1.28.0
   ./kui add master --config config.yaml --hosts add-master-hosts.yaml
 ```
 
-### 批量添加worker节点
+### 批量添加worker节点 (注意：需要保留安装好集群之后的 config.yaml 和data 目录中的生成数据)
 ```shell
-  # 生成 add-worker-host.yaml 主机清单(注意：需要保留安装好集群之后的 config.yaml 和data 目录中的生成数据)
+  # 生成 add-worker-host.yaml 主机清单
   ./kui gen host -n worker
   
   # 开始执行添加worker节点
