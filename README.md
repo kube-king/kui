@@ -89,33 +89,33 @@ v1.28.0
 #### 配置文件 config.yaml
 ```yaml
 core:
-  ignoreSystemCheck: true
-  arch: amd64
-  registry: registry.cn-hangzhou.aliyuncs.com/kube-king
-  networkAdapter: eth0
+  ignoreSystemCheck: true # 是否进行系统检查
+  arch: amd64 # cpu架构选择 目前支持 amd64 和arm64 
+  registry: registry.cn-hangzhou.aliyuncs.com/kube-king # 
+  networkAdapter: eth0 # 网卡接口名称
 kubernetes:
-  version: V1.28.0
-  serviceCidr: 10.91.0.0/16
-  podCidr: 10.241.0.0/16
+  version: V1.28.0 # kubernetes 版本
+  serviceCidr: 10.91.0.0/16 # service cidr地址
+  podCidr: 10.241.0.0/16 # pod cidr地址
 containerRuntime:
-  type: containerd
-  insecureRegistryList:
-    - registry.cn-hangzhou.aliyuncs.com
-etcd:
-  replicas: 3
-  rootPath: /var/lib/etcd
+  type: containerd # kubernetes 1.24开始不支持docker部署，1.24之前的版本支持docker 20.10.8的版本部署
+  insecureRegistryList: # 忽略https 的镜像仓库地址
+    - registry.cn-hangzhou.aliyuncs.com 
+etcd: # etcd 采用外置二进制部署
+  replicas: 3 # etcd 副本数
+  rootPath: /var/lib/etcd # etcd 数据
 kubeVip:
-  enable: true
-  vip: x.x.x.x
+  enable: true # 是否开启kube-vip
+  vip: x.x.x.x # vip地址
 cni:
-  enable: true
-  type: calico
+  enable: true  # 是否开启步数cni插件
+  type: calico # 目前只集成了calico
 ```
 
 #### host节点清单 hosts.yaml
 
 ```yaml
-masters:
+masters: # master 主机清单
   - hostname: master01
     username: root
     password: xxxx
@@ -131,7 +131,7 @@ masters:
     password: xxxx
     ip: 1.1.1.3
     port: 22
-workers:
+workers: # worker 主机清单
   - hostname: worker01
     username: root
     password: xxxx
