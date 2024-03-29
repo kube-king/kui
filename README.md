@@ -44,7 +44,10 @@ v1.28.0
   # 下载二进制文件
   curl -o kui https://github.com/kube-king/kui/releases/download/v0.2/kui-${arch} && chmod +x ./kui
   # 生成配置文件模版 ( 需根据实际环境修改 config.yaml)
-  ./kui gen config --kubernetes-version=v1.25.0 --container-runtime-type=containerd --arch=arm64 --vip=10.211.55.200
+  ./kui gen config --kubernetes-version=v1.25.0 \
+                   --container-runtime-type=containerd \
+                   --arch=arm64 \
+                   --vip=10.211.55.200
   # 生成host主机清单模版
   ./kui gen host -n hosts # 需根据实际主机清单修改 hosts.yaml
   # 部署一个kubernetes集群
