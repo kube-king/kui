@@ -5,7 +5,7 @@ const (
 	DataPath        = RootPath + "data"
 	BinaryPath      = RootPath + "bin"
 	TemplatePath    = RootPath + "templates"
-	DownloadAddress = "http://106.54.234.13:30080/kui"
+	DownloadAddress = "http://kui.in-engine.cn:30080/kui"
 )
 
 const (
