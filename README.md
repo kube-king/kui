@@ -76,11 +76,12 @@ v1.28.0
 1. [x] 支持 X86_64位和ARM64位架构
 2. [x] 支持 单节点master和多节点master集群部署
 3. [x] 支持 系统初始化配置
-4. [x] 支持 etcd集群和单节点部署
+4. [x] 支持 etcd集群和单节点部署 （二进制部署）
 5. [x] 集成 kube-vip 高可用方案 (如需定制化配置，修改templates/kube-vip.yaml.tpl)
 6. [x] 支持 docker 、containerd 部署 (如需有定制化安装,修改:templates/install_docker.sh /templates/install_containerd.sh 即可)
 7. [x] 网络CNI 支持 calico （目前默认使用ipip模式，如需更改修改templates/calico-v3.20.0.yaml.tpl 即可）
 8. [x] 支持在线部署
+9. [x] kubernetes证书已修改为100年
 <!-- TOC -->
 
 ### 配置说明:
