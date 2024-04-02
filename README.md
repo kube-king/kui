@@ -92,7 +92,7 @@ v1.28.0
 core:
   ignoreSystemCheck: true # 是否进行系统检查
   arch: amd64 # cpu架构选择 目前支持 amd64 和arm64 
-  registry: registry.cn-hangzhou.aliyuncs.com/kube-king # 
+  registry: registry.cn-hangzhou.aliyuncs.com/kube-king # 镜像仓库地址
   networkAdapter: eth0 # 网卡接口名称
 kubernetes:
   version: V1.28.0 # kubernetes 版本
